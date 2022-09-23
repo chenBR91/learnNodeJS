@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>methods static page</h2>
+    <main>
+        <form action="/login" method="POST">
+            <h3>Additional name</h3>
+            <div>
+                <label>Input name:</label>
+                <input type="text" name="name" id="name" class="form-input" autocomplete="false">
+            </div>
+            <button type="submit" class="form-btn">Submit</button>
+        </form>
+
+        <div class="result"></div>
+    </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.2.0/axios.min.js"></script>
+    <script>
+        const result = document.querySelector('.result')
+        const fetchPepole = async () => {
+            console.log('Start function')
+            try {
+                const {data} = await axios.get('/api/pepole')
+                //console.log(data)
+                const pepole = data.map((person) => {
+                    return `<h3> ${person.name} </h3>`
+                })
+                result.innerHTML = pepole.join('')
+            }
+            catch(error) {
+                console.log('axios file' , error)   
+                result.innerHTML = `<h5>Can not Fetch data</h5>`
+            }
+        }
+
+        fetchPepole()
+
+        // submit form
+        const btn = document.querySelector('.form-btn')
+        const input = document.querySelector('.form-input')
+
+        
+        btn.addEventListener("click", async (e) => {
+            e.preventDefault()
+            const nameInput = input.value
+            try {
+                const {data} = await axios.post('/api/pepole', {name: nameInput})
+                const h3 = document.createElement('h3')
+                //console.log(data)
+                h3.textContent = data
+                result.appendChild(h3)
+            }
+            catch(error) {
+                result.innerHTML = `error post data`
+                console.log('error')
+            }
+
+            input.value = ''
+        })
+
+
+    </script>
+
+</body>
+</html>

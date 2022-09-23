@@ -1,5 +1,5 @@
 
-const pepole = [
+const pepoles = [
     {id: 0, name: 'Alex'},
     {id: 1, name: 'Chen'},
     {id: 2, name: 'Ben'},
@@ -7,4 +7,4 @@ const pepole = [
 ]
 
 
-module.exports = { pepole };
+module.exports = { pepoles };
